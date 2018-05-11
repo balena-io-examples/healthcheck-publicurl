@@ -2,5 +2,5 @@ version: '2'
 services:
   site:
     build: ./site
-    expose:
-      - "80"
+    ports:
+      - "80:8080"

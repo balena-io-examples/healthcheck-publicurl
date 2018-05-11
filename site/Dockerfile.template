@@ -2,12 +2,14 @@ FROM resin/%%RESIN_MACHINE_NAME%%-alpine-node:9-slim
 
 WORKDIR /usr/src/app
 
+RUN apk add --no-cache curl
+
 COPY package*.json ./
 RUN npm install --production
 
 COPY . ./
 
-HEALTHCHECK --start-period=10s --timeout=30s --interval=5s --retries=1 \
-            CMD curl --silent --fail localhost/status
+HEALTHCHECK --start-period=5s --timeout=30s --interval=5s --retries=1 \
+    CMD curl --silent --fail localhost:8080/status
 
 CMD ["node", "app.js"]

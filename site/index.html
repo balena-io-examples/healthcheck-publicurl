@@ -1,5 +1,5 @@
 <html>
-
+<head>
 <style>
 .warn { color: red; font-weight: bold; }
 </style>
@@ -11,8 +11,9 @@
 
 <script>
 
-var displayState = (state, bold) => {
-    if (bold) {
+// Dislay the state on the page with an optional highlight
+var displayState = (state, warn) => {
+    if (warn) {
         $( "#status" ).html(`<span class="warn">${state.status}<span>`);
     } else {
         $( "#status" ).html(state.status);
@@ -20,26 +21,35 @@ var displayState = (state, bold) => {
     $( "#uptime" ).html(Math.floor((Date.now() - state.starttime)/1000) + "s");
 }
 
-var getStatus = () => {
+// Get the service status and uptime from the server endpoint
+var getStatus = (repeat) => {
     $.get( "/status", ( data ) => {
-        displayState(data);
+        displayState(data, false);
     }).fail( (query) => {
-        displayState(query.responseJSON, true);
+        if (query.status === 503) {
+            displayState(query.responseJSON, true);
+        }
     });
-    setTimeout(getStatus, 3000);
+    if (repeat) {
+        setTimeout( () => getStatus(repeat), 3000);
+    }
 }
 
+// Trigger breakage on the server
 var breakThings = () => {
     $.get( "/break_things", function(data) {
         console.log(data);
+        getStatus();
     })
 }
 
+// start polling the status
 $( document ).ready( () => {
-    getStatus();
+    getStatus(true);
 })
 
 </script>
+</head>
 
 <body>
 
