@@ -1,0 +1,57 @@
+<html>
+
+<style>
+.warn { color: red; font-weight: bold; }
+</style>
+
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+<script>
+
+var displayState = (state, bold) => {
+    if (bold) {
+        $( "#status" ).html(`<span class="warn">${state.status}<span>`);
+    } else {
+        $( "#status" ).html(state.status);
+    }
+    $( "#uptime" ).html(Math.floor((Date.now() - state.starttime)/1000) + "s");
+}
+
+var getStatus = () => {
+    $.get( "/status", ( data ) => {
+        displayState(data);
+    }).fail( (query) => {
+        displayState(query.responseJSON, true);
+    });
+    setTimeout(getStatus, 3000);
+}
+
+var breakThings = () => {
+    $.get( "/break_things", function(data) {
+        console.log(data);
+    })
+}
+
+$( document ).ready( () => {
+    getStatus();
+})
+
+</script>
+
+<body>
+
+<h2>Status</h2>
+<div id="status">(loading...)</div>
+
+<h2>Uptime</h2>
+<div id="uptime">(loading...)</div>
+
+<h2>Trouble ahead<h2>
+<button type="button" onclick="breakThings()">Break things</button>
+
+
+</body>
+</html>
