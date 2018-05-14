@@ -9,7 +9,7 @@ HEALTHCHECK --start-period=5s --timeout=30s --interval=5s --retries=1 \
     CMD curl --silent --fail localhost:8080/status
 ```
 
-Here the `--start-period`, `--timeout`, `--interval`, and `--retries` values are set to pretty short so that the demo works quickly, in your applicaiton you need to set them as apporipriate (see th default values on the linked `HEALTHCHECK` docs page above).
+Here the `--start-period`, `--timeout`, `--interval`, and `--retries` values are set to pretty short so that the demo works quickly, in your application you need to set them as appropriate (see the default values on the linked `HEALTHCHECK` docs page above).
 
 To use this, [deploy the code on resin.io](https://docs.resin.io/learn/getting-started/raspberrypi3/nodejs/), enable the [Public Device URL](https://docs.resin.io/learn/manage/actions/#enable-public-device-url), and open the page, showing the service's status and provide tools to trigger an unhealthy state.
 
