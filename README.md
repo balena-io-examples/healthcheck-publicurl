@@ -1,6 +1,6 @@
 # Healthcheck with Public Device URL
 
-Demo project of using the Docker [`HEALTHCHECK`](https://docs.docker.com/engine/reference/builder/#healthcheck) functionality for a resin.io project.
+Demo project of using the Docker [`HEALTHCHECK`](https://docs.docker.com/engine/reference/builder/#healthcheck) functionality for a balena project.
 
 It's a simple web application, which has a status endpoint, through which it can signal that that the service is unhealthy. The `Dockerfile`'s `HEALTHCHECK` command will query that endpoint, and if the check fails, it will restart the service automatically:
 
@@ -11,7 +11,7 @@ HEALTHCHECK --start-period=5s --timeout=30s --interval=5s --retries=1 \
 
 Here the `--start-period`, `--timeout`, `--interval`, and `--retries` values are set to pretty short so that the demo works quickly, in your application you need to set them as appropriate (see the default values on the linked `HEALTHCHECK` docs page above).
 
-To use this, [deploy the code on resin.io](https://docs.resin.io/learn/getting-started/raspberrypi3/nodejs/), enable the [Public Device URL](https://docs.resin.io/learn/manage/actions/#enable-public-device-url), and open the page, showing the service's status and provide tools to trigger an unhealthy state.
+To use this, [deploy the code on balenaCloud](https://docs.balena.io/learn/getting-started/raspberrypi3/nodejs/), enable the [Public Device URL](https://docs.balena.io/learn/manage/actions/#enable-public-device-url), and open the page, showing the service's status and provide tools to trigger an unhealthy state.
 
 The working page:
 
