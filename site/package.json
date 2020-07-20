@@ -10,7 +10,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "express": "^4.16.3",
-    "lodash": "^4.17.15"
+    "lodash": "^4.17.19"
   },
   "devDependencies": {
     "nodemon": "^1.17.4"
